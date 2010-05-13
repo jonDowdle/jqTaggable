@@ -56,7 +56,7 @@
 				
 				console.log( "Loosing : ", currentTag, $('li[rel=' + currentTag + ']').length );
 				
-				$('li[rel=' + currentTag + ']').remove();
+				$('#current-tags [rel=' + currentTag + ']').remove();
 
 			}
 			
@@ -66,7 +66,7 @@
 				
 				console.log( "Dropping : ", currentTag, $('li[rel=' + currentTag + ']').length );
 				
-				if( $('li[rel=' + currentTag + ']').length == 0 ){
+				if( $('#current-tags [rel=' + currentTag + ']').length == 0 ){
 					$('<li/>')
 						.text(currentTag)
 						.attr('rel', currentTag)
@@ -80,8 +80,11 @@
 	</head>
 	<body>
 		<h1>Tag it</h1>
-		<div class="tag" rel="amazing">Amazing</div>
-		<div class="tag" rel="yummy">Yummy</div>
+		
+		<ul class="tags">
+			<li class="tag" rel="amazing">Amazing</li>
+			<li class="tag" rel="yummy">Yummy</li>
+		</ul>
 		
 		<ul id="current-tags"></ul>
 		
