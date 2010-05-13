@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Untitled Document</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+		<script type="text/javascript" src='jquery.taggable.js'></script>
+		
+		<script type="text/javascript">
+		$(function(){
+			
+			$('.photo').taggable({
+				tags: $('#tags .tag.active'),
+				tagged: function(element, tag){ 
+					$(element).attr('alt', $(element).attr('alt') + ',' + tag ); 
+				}	
+			});
+			
+		});
+		</script>
+		<style type="text/css">
+		body{
+			line-height: 150%;
+		}
+		#things-to-tag{
+			float: right;
+			list-style:none;
+			padding: 0;
+			margin: 0;
+		}
+		#things-to-tag .photo{
+			max-height: 150px;
+		}
+		
+		#tags{
+			float: left;
+			margin: 0;
+			padding:0;
+			list-style:none;
+		}
+		
+		#tags > *.tag{
+			background: transparent url('assets/disabled-tag.png') no-repeat 0px 2px;
+			border-bottom: 1px #aaa dashed;
+			color: #888;
+			cursor: auto;
+			margin: 5px 25px 0 0;
+			padding-left: 23px;
+			
+		}
+		#tags .active{
+			color: #000000;
+			cursor: pointer;
+			background-image: url('assets/enabled-tag.png');
+		}	
+		</style>	
+	</head>
+	<body>
+		
+		<ul id="tags">
+			<li class="tag active">Monkey</li>
+			<li class="tag active">Funny</li>
+			<li class="tag active">Stupid</li>
+			<li class="tag">Silly</li>
+		</ul>
+		<ul id="things-to-tag">
+			<li><img class="photo" src="assets/buddha.jpg" /></li>
+			<li><img class="photo" src="assets/mrt.jpg" /></li>
+			<li><img class="photo" src="assets/normal_sm.jpg" /></li>
+		</ul>
+	</body>
+</html>
