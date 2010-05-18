@@ -14,9 +14,13 @@
 				tags: $('#tags .tag.active'),
 				tagged: function(element, tag){ 
 					$(element).attr('alt', $(element).attr('alt') + ',' + tag ); 
+					$(element).after('<div class="tag active">' + tag + '<div class="close control" /></div>');
 				}	
 			});
 			
+			$('.close.control').live('click', function(){
+				$(this).parent().remove();
+			});
 		});
 		</script>
 		<style type="text/css">
@@ -39,8 +43,7 @@
 			padding:0;
 			list-style:none;
 		}
-		
-		#tags > *.tag{
+		.tag{
 			background: transparent url('assets/disabled-tag.png') no-repeat 0px 2px;
 			border-bottom: 1px #aaa dashed;
 			color: #888;
@@ -49,10 +52,16 @@
 			padding-left: 23px;
 			
 		}
-		#tags .active{
+		.tag.active{
 			color: #000000;
 			cursor: pointer;
 			background-image: url('assets/enabled-tag.png');
+		}
+		
+		.tag .close.control{
+			background:transparent url('assets/delete_16.png') no-repeat 0 4px;
+			width: 16px; height: 20px;
+			float:right;
 		}	
 		</style>	
 	</head>
