@@ -13,12 +13,15 @@
 			$('.photo').taggable({
 				tags: $('#tags .tag.active'),
 				tagged: function(element, tag){ 
-					$(element).attr('alt', $(element).attr('alt') + ',' + tag ); 
 					$(element).after('<div class="tag active">' + tag + '<div class="close control" /></div>');
 				}	
 			});
 			
 			$('.close.control').live('click', function(){
+				var taggedObj = $(this).parent().prev();
+				
+				taggedObj.trigger('untagged', [ $(this).parent().text() ] );
+					
 				$(this).parent().remove();
 			});
 		});

@@ -81,6 +81,18 @@ jQuery.fn.taggable = function( options ){
 				settings.untagged(event.target, tagValue);
 			}	
 		});
+		
+		// Bind events
+		jQuery(el).bind('untagged', function(event, tagName){
+			var tagValue = tagName ? tagName : getTagValue(this);
+			var tagData = getTagData(event.target);
+			// Find tag in array
+			var tagIndex = jQuery.inArray(tagValue, tagData.tags);
+			// Remove it and set obj's data to resulting array	
+			tagData.tags.splice(tagIndex, 1);
+			$(event.target).data('taggable', tagData)
+			settings.untagged(event.target, tagValue);
+		});
 	});
 
 	return this;
