@@ -65,20 +65,8 @@ jQuery.fn.taggable = function( options ){
 			out: function(event, ui){
 				var tagValue = getTagValue(ui.draggable);
 				var tagData = getTagData(event.target);
-				// Find tag in array
-				var tagIndex = jQuery.inArray(tagValue, tagData.tags);
-
-				console.log("Removing tag from ", event.target); 
-				console.log("Current Tags ", tagData.tags);
 				
-				// Remove it and set obj's data to resulting array	
-				tagData.tags.splice(tagIndex, 1);
-
-				console.log("New Tags ", tagData.tags);
-				
-				$(event.target).data('taggable', tagData)
-				
-				settings.untagged(event.target, tagValue);
+				jQuery(event.target).trigger('untagged', [tagValue]);
 			}	
 		});
 		
