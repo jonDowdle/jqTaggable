@@ -28,22 +28,25 @@ jQuery.fn.taggable = function( options ){
 	var onUnTag = function(element, tag){ console.log('Untagged', element, 'with', tag); };
 	
 	var settings = jQuery.extend({
-		tags: jQuery( DEFAULT_TAG_SELECTOR ),
+		tags: DEFAULT_TAG_SELECTOR,
 		tagged: onTag,
-		untagged: onUnTag
+		untagged: onUnTag,
+		draggableHelper: 'clone',
+		draggableCursor: 'pointer',
+		draggableScope: 'taggable-jq-plugin'
 	}, options);
 	
-	settings.tags.each(function(i, el){
+	$(settings.tags).each(function(i, el){
 		jQuery(el).draggable({
-			scope: 'taggable-jq-plugin',
-			helper: 'clone',
-			cursor: 'pointer'
+			scope: settings.draggableScope,
+			helper: settings.draggableHelper,
+			cursor: settings.draggableCursor
 		})
 	});
 	
 	this.each(function(i, el){
 		jQuery(el).droppable({
-			scope: 'taggable-jq-plugin',
+			scope: settings.draggableScope,
 			drop: function(event, ui){
 				var tagValue = getTagValue(ui.draggable);
 				var tagData = getTagData(event.target);
