@@ -13,7 +13,11 @@
 			$('.photo').taggable({
 				tags: $('#tags .tag.active'),
 				tagged: function(element, tag){ 
-					$(element).after('<div class="tag active">' + tag + '<div class="close control" /></div>');
+					if( $(element).siblings('[rel='+tag+']').length == 0 ){
+						$(element).after('<div class="tag active" rel="'+ tag +'">' + tag + '<div class="close control" /></div>');
+					}else{
+						$(element).siblings('[rel='+tag+']').effect('bounce');
+					}
 				}	
 			});
 			
