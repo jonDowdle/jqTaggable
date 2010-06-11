@@ -73,7 +73,7 @@ jQuery.fn.taggable = function( options ){
 			
 			// Call event handler
 			settings.tagged(event.target, tagValue);
-		}
+		});
 		
 		jQuery(el).bind('untagged', function(event, tagName){
 			var tagValue = tagName ? tagName : getTagValue(this);
