@@ -5,6 +5,7 @@
  *  
  * @param {Object} options
  * 
+ * @classDescription
  * Example calls:
  * 
  * Basic call
