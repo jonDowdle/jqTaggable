@@ -51,33 +51,34 @@ jQuery.fn.taggable = function( options ){
 			drop: function(event, ui){
 				var tagValue = getTagValue(ui.draggable);
 				var tagData = getTagData(event.target);
-				
-				// Push tag onto stack and add back to data store
-				
-				console.log("Adding tag to ", event.target); 
-				console.log("Current Tags ", tagData.tags);
-				
-				tagData.tags.push(tagValue);
-				
-				console.log("New Tags ", tagData.tags);
-				
-				$(event.target).data('taggable', tagData)
-				
-				// Call event handler
-				settings.tagged(event.target, tagValue);
+				jQuery(event.target).trigger('tagged', [tagValue]);
 			},
 			out: function(event, ui){
 				var tagValue = getTagValue(ui.draggable);
 				var tagData = getTagData(event.target);
-				
 				jQuery(event.target).trigger('untagged', [tagValue]);
 			}	
 		});
 		
+		
 		// Bind events
+		
+		jQuery(el).bind('tagged', function(event, tagName){
+			var tagValue = tagName ? tagName : getTagValue(this);
+			var tagData = getTagData(event.target);
+			
+			// Push tag onto stack and add back to data store
+			tagData.tags.push(tagValue);
+			$(event.target).data('taggable', tagData)
+			
+			// Call event handler
+			settings.tagged(event.target, tagValue);
+		}
+		
 		jQuery(el).bind('untagged', function(event, tagName){
 			var tagValue = tagName ? tagName : getTagValue(this);
 			var tagData = getTagData(event.target);
+			
 			// Find tag in array
 			var tagIndex = jQuery.inArray(tagValue, tagData.tags);
 			// Remove it and set obj's data to resulting array	
