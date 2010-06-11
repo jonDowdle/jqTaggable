@@ -25,8 +25,8 @@ jQuery.fn.taggable = function( options ){
 	var getTagValue = function(tagElement){ return jQuery(tagElement).attr('rel') ? jQuery(tagElement).attr('rel') : jQuery(tagElement).text();};
 	var getTagData = function(tagElement){ return jQuery(tagElement).data('taggable') ? jQuery(tagElement).data('taggable') : { tags: [] }; }
 	
-	var onTag = function(element, tag){ console.log('Tagged', element, 'with', tag); };
-	var onUnTag = function(element, tag){ console.log('Untagged', element, 'with', tag); };
+	var onTag = function(element, tag){  };
+	var onUnTag = function(element, tag){ };
 	
 	var settings = jQuery.extend({
 		tags: DEFAULT_TAG_SELECTOR,
