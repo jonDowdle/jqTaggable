@@ -10,34 +10,36 @@
 		
 		<script type="text/javascript">
 		$(function(){
-			
 			$('.photo').taggable({
 				tags: '#tags .tag.active',
-				tagged: function(element, tag){ 
-					if( $(element).siblings('[rel='+tag+']').length == 0 ){
-						/* Graphically let user know tag was added */
-						$(element).after('<div class="tag active" rel="'+ tag +'">' + tag + '<div class="close control" /></div>');
-						/* Send to server */
-						$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'tag', 'image': $(element).attr('rel'), 'tag':tag },
-							function(results, txtStatus){ console.log(results,txtStatus); }
-						) ;
-						
-					}else{
-						$(element).siblings('[rel='+tag+']').effect('bounce');
-					}
-				},
-				untagged: function(element, tag){
-					$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'untag', 'image': $(element).attr('rel'), 'tag':tag });	
-				}	
+				tagged: onTag ,
+				untagged: onUntag
 			});
 			
 			$('.close.control').live('click', function(){
 				var taggedObj = $(this).parent().prev();
-				
 				taggedObj.trigger('untagged', [ $(this).parent().text() ] );
-					
 				$(this).parent().remove();
 			});
+
+			function onTag(element, tag){ 
+				if( $(element).siblings('[rel='+tag+']').length == 0 ){
+					/* Graphically let user know tag was added */
+					$(element).after('<div class="tag active" rel="'+ tag +'">' + tag + '<div class="close control" /></div>');
+					/* Send to server */
+					$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'tag', 'image': $(element).attr('rel'), 'tag':tag },
+						function(results, txtStatus){ console.log(results,txtStatus); }
+					) ;
+					
+				}else{
+					$(element).siblings('[rel='+tag+']').effect('bounce');
+				}
+			};
+			
+			function onUntag(element, tag){
+				$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'untag', 'image': $(element).attr('rel'), 'tag':tag });	
+			};
+						
 		});
 		</script>
 		<style type="text/css">
