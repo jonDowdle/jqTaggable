@@ -1,3 +1,4 @@
+<cfsetting showdebugoutput="false">
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 	<head>
@@ -5,7 +6,7 @@
 		<title>Taggable Demo 1</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.js"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-		<script type="text/javascript" src='../jquery.taggable.js'></script>
+		<script type="text/javascript" src='../../jquery.taggable.js'></script>
 		
 		<script type="text/javascript">
 		$(function(){
@@ -17,7 +18,7 @@
 						/* Graphically let user know tag was added */
 						$(element).after('<div class="tag active" rel="'+ tag +'">' + tag + '<div class="close control" /></div>');
 						/* Send to server */
-						$.post('http://localhost:8888/taggable-jq/echo.cfm', { 'action':'tag', 'image': $(element).attr('rel'), 'tag':tag },
+						$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'tag', 'image': $(element).attr('rel'), 'tag':tag },
 							function(results, txtStatus){ console.log(results,txtStatus); }
 						) ;
 						
@@ -26,7 +27,7 @@
 					}
 				},
 				untagged: function(element, tag){
-					$.post('http://localhost:8888/echo.cfm', { 'action':'untag', 'image': $(element).attr('rel'), 'tag':tag });	
+					$.post('http://localhost:8888/taggable-jq/examples/server/saveTags.cfm', { 'action':'untag', 'image': $(element).attr('rel'), 'tag':tag });	
 				}	
 			});
 			
@@ -60,7 +61,7 @@
 			list-style:none;
 		}
 		.tag{
-			background: transparent url('../assets/disabled-tag.png') no-repeat 0px 2px;
+			background: transparent url('../../assets/disabled-tag.png') no-repeat 0px 2px;
 			border-bottom: 1px #aaa dashed;
 			color: #888;
 			cursor: auto;
@@ -71,11 +72,11 @@
 		.tag.active{
 			color: #000000;
 			cursor: pointer;
-			background-image: url('../assets/enabled-tag.png');
+			background-image: url('../../assets/enabled-tag.png');
 		}
 		
 		.tag .close.control{
-			background:transparent url('../assets/delete_16.png') no-repeat 0 4px;
+			background:transparent url('../../assets/delete_16.png') no-repeat 0 4px;
 			width: 16px; height: 20px;
 			float:right;
 		}	
@@ -90,9 +91,28 @@
 			<li class="tag">Silly</li>
 		</ul>
 		<ul id="things-to-tag">
-			<li><img class="photo" src="../assets/buddha.jpg" rel="14" /></li>
-			<li><img class="photo" src="../assets/mrt.jpg" rel="15" /></li>
-			<li><img class="photo" src="../assets/normal_sm.jpg" rel="16" /></li>
+			<li>
+				<img class="photo" src="../../assets/buddha.jpg" rel="14" />
+				<cfif structKeyExists(session.tags, '14')>
+					<cfloop collection="#session.tags[14]#" item="tag">
+						<cfoutput><div rel="#tag#" class="tag active">#tag#<div class="close control"></div></div></cfoutput>
+					</cfloop>
+				</cfif>	
+			</li>
+			<li><img class="photo" src="../../assets/mrt.jpg" rel="15" />
+				<cfif structKeyExists(session.tags, '15')>
+					<cfloop collection="#session.tags[15]#" item="tag">
+						<cfoutput><div rel="#tag#" class="tag active">#tag#<div class="close control"></div></div></cfoutput>
+					</cfloop>
+				</cfif>
+			</li>
+			<li><img class="photo" src="../../assets/normal_sm.jpg" rel="16" />
+				<cfif structKeyExists(session.tags, '16')>
+					<cfloop collection="#session.tags[16]#" item="tag">
+						<cfoutput><div rel="#tag#" class="tag active">#tag#<div class="close control"></div></div></cfoutput>
+					</cfloop>
+				</cfif>
+			</li>
 		</ul>
 	</body>
 </html>
